@@ -1,4 +1,4 @@
-# Script Intall Docker e Add User
+# Intall Docker e Add User
 Criar novo usuário e instalar o docker
 
 os parâmetros são o nome do usuario e senha
