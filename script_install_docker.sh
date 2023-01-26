@@ -10,4 +10,4 @@ echo "*** Instalação do Docker ***"
 curl -fsSL https://get.docker.com | bash
 
 echo "*** Criando usuário ***"
-useradd USER -m -s /bin/bash -p $(openssl passwd -6 123) -G sudo
+useradd $1 -m -s /bin/bash -p $(openssl passwd -6 $2) -G sudo
