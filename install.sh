@@ -21,7 +21,7 @@ progress_bar() {
 
     while [ $i -le 100 ]; do
         printf "\rProgress: ["
-        for ((j=0; j<i; j++)); do printf "#"; done
+        for ((j=0; j<i; j++)); do printf "="; done
         for ((j=i; j<100; j++)); do printf " "; done
         printf "] %d%%" $i
         sleep 0.1
@@ -32,28 +32,31 @@ progress_bar() {
 
 # Atualizando o sistema operacional
 echo "*** Atualizando SO ***"
-apt-get update -y &
+sudo apt-get update -y > /dev/null &
 PID=$!
 progress_bar 30
 wait $PID
 
 # Instalação de pacotes necessários
 echo "*** Instalação de Pacotes ***"
-apt-get install ca-certificates curl gnupg lsb-release -y &
+sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null &
 PID=$!
 progress_bar 30
 wait $PID
 
 # Instalando o Docker
 echo "*** Instalação do Docker ***"
-curl -fsSL https://get.docker.com | bash &
+curl -fsSL https://get.docker.com > /dev/null | bash &
 PID=$!
 progress_bar 30
 wait $PID
 
 # Adicionando o usuário atual ao grupo do Docker
-echo "*** Configurando o grupo de usuários do Docker ***"
-usermod -aG docker $USER
+echo "*** Configurando o grupo de usuários do Docker***"
+echo $USER
+sudo groupadd docker > /dev/null
+sudo usermod -aG docker $USER > /dev/null
 
 # Mensagem final de sucesso
 echo "*** Instalação e configuração do Docker concluídas com sucesso! ***"
+exec su - $USER
