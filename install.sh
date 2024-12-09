@@ -46,7 +46,7 @@ wait $PID
 
 # Instalando o Docker
 echo "*** Instalação do Docker ***"
-curl -fsSL https://get.docker.com > /dev/null | bash &
+curl -fsSL https://get.docker.com | bash &
 PID=$!
 progress_bar 30
 wait $PID
